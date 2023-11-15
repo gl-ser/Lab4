@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------//
-//                       *** ЛАБОРАТОРНАЯ РАБОТА № 4 ***                      //
+//                    *** ЛАБОРАТОРНАЯ РАБОТА №№ 3,4,5 ***                    //
 //                                                                            //
 // Файл TelemetricFile.cpp                                                    //
 //                                                                            //
@@ -69,6 +69,30 @@ void TTelemetricFile::ReadFile(QString PathName)
     } while (str != "");
   }
   CloseFile();
+}
+
+
+TData TTelemetricFile::ReadFile2(QString PathName)
+{
+QString str;
+TData Res;
+
+  OpenFile(PathName);
+  if (IsOpen == true)
+  {
+    File.readLine();  //Чтение заголовка файла
+    do
+    {
+      str = QString(File.readLine());
+
+      if (str != "")
+        Res.push_back(new TPoint(str));
+
+    } while (str != "");
+  }
+  CloseFile();
+
+  return Res;
 }
 
 

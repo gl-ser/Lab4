@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------//
-//                       *** ЛАБОРАТОРНАЯ РАБОТА № 4 ***                      //
+//                    *** ЛАБОРАТОРНАЯ РАБОТА №№ 3,4,5 ***                    //
 //                                                                            //
 // Файл TelemetricFile.h                                                      //
 //                                                                            //
@@ -21,11 +21,10 @@
 //Одна строка записи телеметрического файла
 class TPoint
 {
-  private:
+  public:
     double mValue;    //Значение
     QDateTime mTime;  //Время
 
-  public:
     TPoint(void) = delete;
     TPoint(QString line);
     virtual ~TPoint(void);
@@ -35,10 +34,14 @@ class TPoint
 };
 
 
+//Результат чтения телеметрического файла
+typedef QList<TPoint*> TData;
+
+
 class TTelemetricFile
 {
   private:
-    QList<TPoint*> Data;  //Содержимое телеметрического файла
+    TData Data;  //Содержимое телеметрического файла (заполняется методом ReadFile)
     QFile File;
     bool IsOpen;
 
@@ -61,7 +64,11 @@ class TTelemetricFile
     // На вход подается путь и имя файла
     void ReadFile(QString PathName);
 
-    //Вывод данных телеметрического файла
+    //Чтение содержимого телеметрического файла в выходной список
+    // На вход подается путь и имя файла
+    TData ReadFile2(QString PathName);
+
+    //Вывод данных телеметрического файла после чтения методом ReadFile
     QStringList Print(void);
 };
 
